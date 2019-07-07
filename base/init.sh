@@ -47,11 +47,8 @@ module "tfstate-backend" {
     region = "${aws_default_region}"
     s3_bucket_name = "${s3_bucket}"
     dynamodb_lock_table = "${tf_lock_table}"
-EOF
-    
-    cat >> "${S3_FILE}" <<\EOF
-    environment = "${var.env}"
-    profile = "${var.aws_profile}"
+    environment = "\${var.env}"
+    profile = "\${var.aws_profile}"
     tags = { owner = "terraform" }
 }
 EOF

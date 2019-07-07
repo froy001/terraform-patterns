@@ -24,13 +24,14 @@ export VARIABLES_TF=$(cat <<EOF
 #$ export AWS_DEFAULT_REGION="us-west-2"
 #$ terraform plan
 provider "aws" {
+  version = "~> 2.8"
   profile = "\${var.aws_profile}"
   region  = "\${var.region}"
 }
 
 data "terraform_remote_state" "master_state" {
   backend = "s3"
-  config {
+  config = {
     bucket = "\${var.tf_s3_bucket}"
     region = "\${var.region}"
     key    = "\${var.master_state_file}"
