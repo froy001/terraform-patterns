@@ -12,14 +12,14 @@ provider "aws" {
   region  = "${var.region}"
 }
 
-data "terraform_remote_state" "master_state" {
-  backend = "s3"
-  config {
-    bucket = "${var.tf_s3_bucket}"
-    region = "${var.region}"
-    key    = "${var.master_state_file}"
-  }
-}
+# data "terraform_remote_state" "master_state" {
+#   backend = "s3"
+#   config {
+#     bucket = "${var.tf_s3_bucket}"
+#     region = "${var.region}"
+#     key    = "${var.master_state_file}"
+#   }
+# }
 
 variable "aws_profile" {
   description = "Which AWS profile is should be used? Defaults to \"default\""
@@ -34,10 +34,10 @@ variable "stack" { default = "ref" }
 
 variable "tf_s3_bucket" {
   description = "S3 bucket Terraform can use for state"
-  default     = "tf-patterns-devops-state-us-east-2"
+  default     = "tf-infrastructure-devops-state-us-east-2"
 }
 
-variable "master_state_file" { default = "terraform-patterns/state/base/base.tfstate" }
-variable "prod_state_file" { default = "terraform-patterns/state/production/production.tfstate" }
-variable "staging_state_file" { default = "terraform-patterns/state/staging/staging.tfstate" }
-variable "dev_state_file" { default = "terraform-patterns/state/dev/dev.tfstate" }
+variable "master_state_file" { default = "terraform-infrastructure/state/base/base.tfstate" }
+variable "prod_state_file" { default = "terraform-infrastructure/state/production/production.tfstate" }
+variable "staging_state_file" { default = "terraform-infrastructure/state/staging/staging.tfstate" }
+variable "dev_state_file" { default = "terraform-infrastructure/state/dev/dev.tfstate" }
