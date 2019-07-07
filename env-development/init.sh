@@ -35,6 +35,10 @@ tf_lock_table="${TF_LOCK_TABLE:-rk-terraformStateLock}"
 
 FILE="terraform.tf"
 
+if [ "${tf_env}" = "base" ]; then
+
+fi
+
 export TF=$(cat <<EOF
 terraform {
   required_version = ">= ${tf_version}"
@@ -42,7 +46,7 @@ terraform {
     bucket = "${s3_bucket}"
     region = "${aws_default_region}"
     key    = "${s3_prefix}/${tf_env}.tfstate"
-    lock_table = "${tf_lock_table}"
+    dynamodb_table = "${tf_lock_table}"
   }
 }
 EOF

@@ -1,5 +1,6 @@
 # local
 .env
+.envrc
 secrets.tfvars
 .DS_Store
 
