@@ -43,7 +43,7 @@ terraform {
     bucket = "${s3_bucket}"
     region = "${aws_default_region}"
     key    = "${s3_prefix}/${tf_env}.tfstate"
-    lock_table = "${tf_lock_table}"
+    dynamodb_table = "${tf_lock_table}"
   }
 }
 EOF
