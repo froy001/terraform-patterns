@@ -7,11 +7,22 @@ TLDR, but really, go read the post, it's way better then what I'm going to write
 The Current production [terraform version](https://github.com/FitnessKeeper/terraform-runkeeper#terraform-version) can be found here
 ### To create a new repo using the terraform-reference repo.
 
-- Clone the repo `git clone https://github.com/FitnessKeeper/terraform-reference`
-- Edit .env in the root of the repo, in particular make sure you add a TF_PROJECT_NAME
+- Clone the repo `git clone git@github.com:froy001/terraform-patterns.git`
+- Edit .envrc in the root of the repo, in particular make sure you add a TF_PROJECT_NAME
   - When creating a `spike` make sure you update TF_SPINE in env if something other then `rk` is needed, at the time of this writing `rk` and `asics` are valid spines.
   - Also when creating ASICS `spikes` update to `TF_LOCK_TABLE=asics-services-terraformStateLock` 
-- Initialize variables.tf, this only needs to be done once, when the repo is created run `./init-variables.tf.sh`
+- cd into base/ 
+- if you have a `s3.tf` file in this dir remove it and run '''$ ./init.sh''' once. This will set up your bucket for use with s3 backend
+- You will see a `terraform plan` run and a `base_plan` file will be created.
+- if the plan looks good to you, run `terraform apply base_plan`
+- this will fail. Due to a timing issue with interpolation of local's. 
+- Run `terraform plan -out base_plan`
+- Run `terraform apply base_plan`
+- Run `./init.sh` again. this will setup your remote backend for base env.
+- You should now have a working backed on s3
+- Run `cd ..`
+
+- Initialize variables.tf, this only needs to be done once, after the backend is created run `./init-variables.tf.sh`
 -  Remove the old origin `git remote rm origin`
 -  Add your new repo `git remote add origin https://github.com/FitnessKeeper/terraform-reference.git`
 - Commit your changes
